@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>版本历史 - OpenClaw</title>
+  <meta name="description" content="OpenClaw 官方版本历史与更新日志，记录每一版发布时间、更新内容、兼容性与升级路径。">
+  <meta name="theme-color" content="#09090b">
+  <link rel="icon" href="/favicon.ico?v=202603221725">
+  <link rel="stylesheet" href="/assets/styles.css?v=202603222130">
+  <meta property="og:title" content="版本历史 - OpenClaw">
+  <meta property="og:description" content="OpenClaw 官方版本历史与更新日志，记录每一版发布时间、更新内容、兼容性与升级路径。">
+  <meta property="og:url" content="https://download.zhjjq.tech/releases/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="OpenClaw">
+  <meta property="og:image" content="https://download.zhjjq.tech/assets/og-image.jpg?v=202603221725">
+  <meta name="twitter:card" content="summary">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="/">
+        <span class="logo-icon logo-image"><img src="/assets/brand-logo-64.png?v=202603221725" alt="OpenClaw logo"></span>
+        <span>OpenClaw</span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="/downloads/">下载</a>
+        <a href="/guide/">安装指南</a>
+        <a href="/security/">安全校验</a>
+        <a href="/releases/" class="active">版本历史</a>
+        <a href="/community/">社区</a>
+    <a href="https://docs.openclaw.ai" target="_blank">文档</a>
+      </nav>
+      <a class="nav-cta" href="/downloads/">立即下载</a>
+      <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="菜单">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <h1>版本历史</h1>
+      <p>每个版本的发布时间、更新内容与下载入口。从第一版起建立规范，后续迭代有据可查。</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:10px;padding-bottom:10px;"><div class="container"><div class="brand-hero-card"><div class="brand-hero-card-inner"><img src="/assets/brand-logo.png?v=202603221725" alt="brand"><div><h3>版本历史不是摆设，而是交付体系的一部分</h3><p>每个版本都应该能追溯发布时间、安装包、哈希值、更新说明与升级路径。现在这套下载站已经具备这个基础设施。</p></div></div></div></div></section>
+
+  <!-- Latest Release -->
+  <section class="section" style="padding-top:40px;">
+    <div class="container">
+      <div id="release-dynamic-list"></div>
+      <div class="release-card latest" style="margin-bottom:40px;display:none;">
+        <div class="release-header">
+          <h3>v1.0.0</h3>
+          <span class="tag tag-latest">Latest</span>
+          <span class="tag tag-stable">Stable</span>
+          <span class="tag tag-date">2026-03-20</span>
+        </div>
+        <div class="grid grid-2" style="gap:32px;">
+          <div>
+            <h4 style="font-size:15px;font-weight:700;margin-bottom:16px;color:var(--text);">初始发布</h4>
+            <ul class="release-body">
+              <li>提供首个 Windows 图形安装器（NSIS 打包）</li>
+              <li>支持多 AI Provider 基础配置（OpenAI、Anthropic、自定义端点）</li>
+              <li>本地 Gateway 一键启动与浏览器控制页面</li>
+              <li>完整的下载交付体系：官网、安装指南、安全校验、版本历史</li>
+              <li>manifest.json 版本清单，为后续自动更新奠定基础</li>
+            </ul>
+            <div class="release-footer">
+              <a class="btn btn-primary" href="/downloads/OpenClaw-Installer-Setup-1.0.0.exe" data-dynamic-href="latest-download">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span data-dynamic="latest-download-short">下载 v1.0.0 (163 MB)</span>
+              </a>
+              <a class="btn btn-secondary" href="/security/">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                校验信息
+              </a>
+            </div>
+          </div>
+          <div>
+            <div class="dl-meta">
+              <div class="dl-meta-row">
+                <span class="meta-label">平台</span>
+                <span class="meta-value">Windows 10 / 11 (x64)</span>
+              </div>
+              <div class="dl-meta-row">
+                <span class="meta-label">文件名</span>
+                <span class="meta-value" data-dynamic="latest-file-name">OpenClaw-Installer-Setup-1.0.0.exe</span>
+              </div>
+              <div class="dl-meta-row">
+                <span class="meta-label">文件大小</span>
+                <span class="meta-value" data-dynamic="latest-size">163.0 MB</span>
+              </div>
+              <div class="dl-meta-row">
+                <span class="meta-label">SHA256</span>
+                <span class="meta-value mono" data-dynamic="latest-sha-short">33266b0508b1fcc8...189d6f9c</span>
+              </div>
+            </div>
+            <div class="notice notice-info" style="margin-top:16px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              <div>这是首个正式版本。如遇问题请查看<a class="text-link" href="/guide/#faq">常见问题</a>或在 <a class="text-link" href="https://github.com/openclaw/openclaw/issues" target="_blank">GitHub Issues</a> 反馈。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Version Strategy -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <div class="overline">Versioning</div>
+        <h2>版本策略</h2>
+        <p>遵循语义化版本规范，每次发布都有据可查</p>
+      </div>
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-icon green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3>补丁版本 (x.x.1)</h3>
+          <p>修复 bug、修正文案、改善兼容性。不改变核心安装逻辑，可直接覆盖安装。</p>
+        </div>
+        <div class="card">
+          <div class="card-icon blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <h3>小版本 (x.1.0)</h3>
+          <p>新增功能：自检、升级提醒、日志导出、更多 Provider 模板等。向后兼容。</p>
+        </div>
+        <div class="card">
+          <div class="card-icon purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3>大版本 (2.0.0)</h3>
+          <p>涉及安装架构变化、目录迁移、自动更新系统或跨平台支持。可能需要迁移步骤。</p>
+        </div>
+        <div class="card">
+          <div class="card-icon amber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+          </div>
+          <h3>历史版本保留</h3>
+          <p>旧版本不覆盖、不删除，保留下载入口。方便回滚与兼容性排查。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Release Fields -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="overline">Release Standard</div>
+        <h2>发布规范字段</h2>
+        <p>每个版本发布时必须包含以下信息</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>字段</th>
+              <th>是否必须</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>版本号</td>
+              <td><span class="tag tag-stable" style="font-size:11px;">必须</span></td>
+              <td>语义化版本 MAJOR.MINOR.PATCH</td>
+            </tr>
+            <tr>
+              <td>发布日期</td>
+              <td><span class="tag tag-stable" style="font-size:11px;">必须</span></td>
+              <td>ISO 8601 格式，方便用户判断新旧</td>
+            </tr>
+            <tr>
+              <td>平台</td>
+              <td><span class="tag tag-stable" style="font-size:11px;">必须</span></td>
+              <td>Windows x64 / 后续扩展 macOS、Linux</td>
+            </tr>
+            <tr>
+              <td>下载文件名</td>
+              <td><span class="tag tag-stable" style="font-size:11px;">必须</span></td>
+              <td>文件名必须包含版本号</td>
+            </tr>
+            <tr>
+              <td>SHA256</td>
+              <td><span class="tag tag-stable" style="font-size:11px;">必须</span></td>
+              <td>安全校验基础</td>
+            </tr>
+            <tr>
+              <td>更新摘要</td>
+              <td><span class="tag tag-stable" style="font-size:11px;">必须</span></td>
+              <td>告诉用户这版改了什么</td>
+            </tr>
+            <tr>
+              <td>升级说明</td>
+              <td><span class="tag tag-latest" style="font-size:11px;">建议</span></td>
+              <td>是否可直接覆盖安装、是否需要迁移</td>
+            </tr>
+            <tr>
+              <td>已知问题</td>
+              <td><span class="tag tag-latest" style="font-size:11px;">建议</span></td>
+              <td>透明说明当前版本的已知限制</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upcoming -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <div class="overline">Coming Next</div>
+        <h2>即将到来</h2>
+        <p>下一个版本的计划方向</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="card" style="text-align:center;">
+          <div class="card-icon blue" style="margin:0 auto 16px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>日志导出与诊断</h3>
+          <p>安装日志一键导出，方便排查问题</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div class="card-icon green" style="margin:0 auto 16px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>安装后自检</h3>
+          <p>自动检测文件完整性、端口与 Gateway 状态</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div class="card-icon purple" style="margin:0 auto 16px;">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </div>
+          <h3>GitHub Release 联动</h3>
+          <p>官网与 GitHub Releases 双重来源同步</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>获取最新版本</h2>
+      <p>前往下载页获取当前稳定版</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary btn-lg" href="/downloads/">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          前往下载页
+        </a>
+        <a class="btn btn-secondary btn-lg" href="https://github.com/openclaw/openclaw/releases" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub Releases
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">
+            <span class="logo-icon logo-image"><img src="/assets/brand-logo-64.png?v=202603221725" alt="OpenClaw logo"></span>
+            <span>OpenClaw</span>
+          </div>
+          <p>你的私人 AI 助手平台。安全下载，透明校验，持续更新。</p>
+        </div>
+        <div class="footer-col">
+          <h4>产品</h4>
+          <a href="/downloads/">下载中心</a>
+          <a href="/guide/">安装指南</a>
+          <a href="/releases/">版本历史</a>
+          <a href="/security/">安全校验</a>
+        </div>
+        <div class="footer-col">
+          <h4>资源</h4>
+          <a href="https://docs.openclaw.ai" target="_blank">官方文档</a>
+          <a href="https://github.com/openclaw/openclaw" target="_blank">GitHub</a>
+          <a href="https://clawhub.com" target="_blank">ClawHub</a>
+          <a href="https://discord.com/invite/clawd" target="_blank">Discord</a>
+        </div>
+        <div class="footer-col">
+          <h4>支持</h4>
+          <a href="/guide/#faq">常见问题</a>
+          <a href="https://github.com/openclaw/openclaw/issues" target="_blank">反馈问题</a>
+          <a href="/security/">安全说明</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 OpenClaw. All rights reserved.</span>
+        <div class="footer-bottom-links">
+          <a href="https://github.com/openclaw/openclaw" target="_blank">GitHub</a>
+          <a href="https://docs.openclaw.ai" target="_blank">Docs</a>
+          <a href="https://discord.com/invite/clawd" target="_blank">Community</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var links = document.querySelectorAll('.nav-links a');
+      for (var i = 0; i < links.length; i++) {
+        links[i].addEventListener('click', function() {
+          document.getElementById('navLinks').classList.remove('open');
+        });
+      }
+    });
+  </script>
+  <script src="/assets/site.js?v=202603222130"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - OpenClaw</title>
+  <meta name="theme-color" content="#09090b">
+  <link rel="icon" href="/favicon.ico?v=202603221725">
+  <link rel="stylesheet" href="/assets/styles.css?v=202603222130">
+  <meta property="og:title" content="404 - OpenClaw">
+  <meta property="og:description" content="OpenClaw">
+  <meta property="og:url" content="https://download.zhjjq.tech/404.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="OpenClaw">
+  <meta property="og:image" content="https://download.zhjjq.tech/assets/og-image.jpg?v=202603221725">
+  <meta name="twitter:card" content="summary">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="/">
+        <span class="logo-icon logo-image"><img src="/assets/brand-logo-64.png?v=202603221725" alt="OpenClaw logo"></span>
+        <span>OpenClaw</span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="/downloads/">下载</a>
+        <a href="/guide/">安装指南</a>
+        <a href="/security/">安全校验</a>
+        <a href="/releases/">版本历史</a>
+        <a href="https://docs.openclaw.ai" target="_blank">文档</a>
+      </nav>
+      <a class="nav-cta" href="/downloads/">立即下载</a>
+      <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="菜单">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero" style="padding:120px 0;">
+    <div class="container hero-content animate-in">
+      <h1 style="font-size:120px;margin-bottom:8px;background:linear-gradient(180deg,#fff 0%,#3b82f6 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">404</h1>
+      <p class="lead" style="font-size:22px;margin-bottom:12px;color:var(--text);">页面未找到</p>
+      <p class="lead">你访问的页面不存在或已被移动。请检查 URL 是否正确。</p>
+      <div class="hero-actions" style="margin-top:36px;">
+        <a class="btn btn-primary btn-lg" href="/">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          返回首页
+        </a>
+        <a class="btn btn-secondary btn-lg" href="/downloads/">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          前往下载页
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="margin-top:0;padding-top:0;border-top:none;">
+        <span>&copy; 2026 OpenClaw. All rights reserved.</span>
+        <div class="footer-bottom-links">
+          <a href="https://github.com/openclaw/openclaw" target="_blank">GitHub</a>
+          <a href="https://docs.openclaw.ai" target="_blank">Docs</a>
+          <a href="https://discord.com/invite/clawd" target="_blank">Community</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var links = document.querySelectorAll('.nav-links a');
+      for (var i = 0; i < links.length; i++) {
+        links[i].addEventListener('click', function() {
+          document.getElementById('navLinks').classList.remove('open');
+        });
+      }
+    });
+  </script>
+  <script src="/assets/site.js?v=202603222130"></script>
+</body>
+</html>

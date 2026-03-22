@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>安全校验 - OpenClaw</title>
+  <meta name="description" content="OpenClaw 官方安全页，公开 SHA256 校验值、验证命令、下载安全建议与签名计划。">
+  <meta name="theme-color" content="#09090b">
+  <link rel="icon" href="/favicon.ico?v=202603221725">
+  <link rel="stylesheet" href="/assets/styles.css?v=202603222130">
+  <meta property="og:title" content="安全校验 - OpenClaw">
+  <meta property="og:description" content="OpenClaw 官方安全页，公开 SHA256 校验值、验证命令、下载安全建议与签名计划。">
+  <meta property="og:url" content="https://download.zhjjq.tech/security/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="OpenClaw">
+  <meta property="og:image" content="https://download.zhjjq.tech/assets/og-image.jpg?v=202603221725">
+  <meta name="twitter:card" content="summary">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="/">
+        <span class="logo-icon logo-image"><img src="/assets/brand-logo-64.png?v=202603221725" alt="OpenClaw logo"></span>
+        <span>OpenClaw</span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="/downloads/">下载</a>
+        <a href="/guide/">安装指南</a>
+        <a href="/security/" class="active">安全校验</a>
+        <a href="/releases/">版本历史</a>
+        <a href="/community/">社区</a>
+    <a href="https://docs.openclaw.ai" target="_blank">文档</a>
+      </nav>
+      <a class="nav-cta" href="/downloads/">立即下载</a>
+      <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="菜单">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <h1>安全与校验</h1>
+      <p>每个版本都公开完整的校验信息。下载后请务必验证哈希值，确认文件来源可信、内容未被篡改。</p>
+    </div>
+  </section>
+
+  <!-- Current Version Hash -->
+  <section class="section" style="padding-top:40px;">
+    <div class="container">
+      <div class="grid grid-2">
+        <div class="dl-card">
+          <div class="version-tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-dynamic="latest-version-plain">1.0.0</span>
+          </div>
+          <h2>校验信息</h2>
+          <div class="dl-meta">
+            <div class="dl-meta-row">
+              <span class="meta-label">文件名</span>
+              <span class="meta-value" data-dynamic="latest-file-name">OpenClaw-Installer-Setup-1.0.0.exe</span>
+            </div>
+            <div class="dl-meta-row">
+              <span class="meta-label">文件大小</span>
+              <span class="meta-value" data-dynamic="latest-size">163.0 MB</span>
+            </div>
+            <div class="dl-meta-row">
+              <span class="meta-label">发布日期</span>
+              <span class="meta-value" data-dynamic="latest-date">2026-03-20</span>
+            </div>
+          </div>
+          <div class="hash-display" style="margin-bottom:24px;">
+            <span class="hash-label">SHA-256</span>
+            <span data-dynamic="latest-sha-full">33266b0508b1fcc809875e24e61bf94b51a8e03bb283d3ef56a8cea7189d6f9c</span>
+          </div>
+          <div class="notice notice-success">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <div>将你计算出的哈希值与上方公布的值逐字比对。完全一致 = 文件未被篡改。</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="card" style="margin-bottom:20px;">
+            <h3 style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+              Windows 验证命令
+            </h3>
+            <div class="code-block" style="margin-bottom:12px;">
+              <span class="code-label">PowerShell</span>
+<span data-dynamic="latest-powershell">Get-FileHash "OpenClaw-Installer-Setup-1.0.0.exe" -Algorithm SHA256</span>
+            </div>
+            <div class="code-block" style="margin-bottom:12px;">
+              <span class="code-label">CMD</span>
+certutil -hashfile "<span data-dynamic="latest-file-name">OpenClaw-Installer-Setup-1.0.0.exe</span>" SHA256
+            </div>
+            <p style="font-size:13px;color:var(--text-muted);margin-top:12px;">在安装包所在目录打开终端，运行以上任一命令，将输出结果与本页公布的 SHA256 完全比对。</p>
+          </div>
+
+          <div class="notice notice-warn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <div>如果哈希值不匹配，请立即删除该文件，不要运行。重新从官方下载页获取安装包。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Security Practices -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <div class="overline">Security Best Practices</div>
+        <h2>下载安全建议</h2>
+        <p>保护你的设备安全，从正确的下载习惯开始</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-icon blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+          </div>
+          <h3>只从官方域名下载</h3>
+          <p>不要从网盘、聊天转发、第三方镜像获取安装包。官方下载页是唯一可信来源，降低中间人替换风险。</p>
+        </div>
+        <div class="card">
+          <div class="card-icon amber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>先校验后放行</h3>
+          <p>如果杀软或 Defender 弹窗，不要立刻忽略。先核对 SHA256 哈希值，确认文件完整后再决定是否继续安装。</p>
+        </div>
+        <div class="card">
+          <div class="card-icon green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <h3>版本信息公开透明</h3>
+          <p>每个版本公开发布时间、文件大小、校验值与更新说明，方便企业用户做审计留档与合规检查。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Security Status -->
+  <section class="section">
+    <div class="container">
+      <div class="grid grid-2">
+        <div class="card">
+          <h3 style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            当前安全状态
+          </h3>
+          <div class="checklist">
+            <div class="check-item done">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              SHA256 校验值已公开
+            </div>
+            <div class="check-item done">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              官方下载页与版本页独立分离
+            </div>
+            <div class="check-item done">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              文件名包含版本号，防止混淆
+            </div>
+            <div class="check-item done">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              配套安装文档与校验说明
+            </div>
+            <div class="check-item done">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              manifest.json 版本清单
+            </div>
+            <div class="check-item done">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              HTTPS 正式域名（已启用）
+            </div>
+            <div class="check-item pending">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Windows 代码签名证书（计划中）
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+            安全升级路线图
+          </h3>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num" style="background:var(--green-bg);color:var(--green);border-color:rgba(34,197,94,0.2);">1</div>
+              <div class="step-content">
+                <h3>绑定正式域名 + HTTPS</h3>
+                <p>已完成。download.zhjjq.tech 全链路 HTTPS 加密，Let's Encrypt 证书自动续期。</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <h3>申请代码签名证书</h3>
+                <p>为安装包做 Windows 代码签名，消除 Defender 警告，提升企业信任。</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <h3>GitHub Release 联动</h3>
+                <p>官网下载页与 GitHub Releases 同步，双重来源互相验证。</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <h3>发布签名与自动更新签名</h3>
+                <p>后续版本增加 GPG 签名文件，自动更新机制内置签名校验。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>确认安全后，开始安装</h2>
+      <p>校验通过？按照安装指南完成配置</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary btn-lg" href="/downloads/OpenClaw-Installer-Setup-1.0.0.exe" data-dynamic-href="latest-download">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          下载 <span data-dynamic="latest-version">v1.0.0</span>
+        </a>
+        <a class="btn btn-secondary btn-lg" href="/guide/">查看安装指南</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">
+            <span class="logo-icon logo-image"><img src="/assets/brand-logo-64.png?v=202603221725" alt="OpenClaw logo"></span>
+            <span>OpenClaw</span>
+          </div>
+          <p>你的私人 AI 助手平台。安全下载，透明校验，持续更新。</p>
+        </div>
+        <div class="footer-col">
+          <h4>产品</h4>
+          <a href="/downloads/">下载中心</a>
+          <a href="/guide/">安装指南</a>
+          <a href="/releases/">版本历史</a>
+          <a href="/security/">安全校验</a>
+        </div>
+        <div class="footer-col">
+          <h4>资源</h4>
+          <a href="https://docs.openclaw.ai" target="_blank">官方文档</a>
+          <a href="https://github.com/openclaw/openclaw" target="_blank">GitHub</a>
+          <a href="https://clawhub.com" target="_blank">ClawHub</a>
+          <a href="https://discord.com/invite/clawd" target="_blank">Discord</a>
+        </div>
+        <div class="footer-col">
+          <h4>支持</h4>
+          <a href="/guide/#faq">常见问题</a>
+          <a href="https://github.com/openclaw/openclaw/issues" target="_blank">反馈问题</a>
+          <a href="/security/">安全说明</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 OpenClaw. All rights reserved.</span>
+        <div class="footer-bottom-links">
+          <a href="https://github.com/openclaw/openclaw" target="_blank">GitHub</a>
+          <a href="https://docs.openclaw.ai" target="_blank">Docs</a>
+          <a href="https://discord.com/invite/clawd" target="_blank">Community</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var links = document.querySelectorAll('.nav-links a');
+      for (var i = 0; i < links.length; i++) {
+        links[i].addEventListener('click', function() {
+          document.getElementById('navLinks').classList.remove('open');
+        });
+      }
+    });
+  </script>
+  <script src="/assets/site.js?v=202603222130"></script>
+</body>
+</html>

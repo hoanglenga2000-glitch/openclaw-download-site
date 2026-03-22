@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /downloads/*.exe
+
+Sitemap: https://download.zhjjq.tech/sitemap.xml

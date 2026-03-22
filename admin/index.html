@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenClaw Admin - 平台管理后台</title>
+  <link rel="icon" href="/favicon.ico?v=202603222210">
+  <link rel="stylesheet" href="/assets/styles.css?v=202603222210">
+  <style>
+    .admin-shell{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+    .admin-sidebar{border-right:1px solid var(--border);background:rgba(10,10,12,.88);backdrop-filter:blur(18px);padding:24px;position:sticky;top:0;height:100vh}
+    .admin-brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:18px;margin-bottom:28px}
+    .admin-nav{display:grid;gap:8px}
+    .admin-nav a{padding:12px 14px;border-radius:12px;color:var(--text-secondary);font-size:14px;font-weight:600}
+    .admin-nav a.active,.admin-nav a:hover{background:rgba(59,130,246,.10);color:var(--primary-hover)}
+    .admin-main{padding:28px}
+    .admin-topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:24px}
+    .admin-page{display:none}
+    .admin-page.active{display:block}
+    .kpi{font-size:34px;font-weight:800;color:var(--text);margin-top:8px}
+    .table-lite{width:100%;border-collapse:collapse;margin-top:14px}
+    .table-lite th,.table-lite td{padding:12px 10px;border-bottom:1px solid rgba(255,255,255,.06);text-align:left;font-size:14px;vertical-align:top}
+    .table-lite th{color:var(--text);font-weight:700}
+    .table-lite td{color:var(--text-secondary)}
+    .admin-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .pill{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:700}
+    .pill-active{background:rgba(34,197,94,.12);color:#4ade80}
+    .pill-hidden{background:rgba(245,158,11,.12);color:#fbbf24}
+    .login-overlay{position:fixed;inset:0;z-index:999;background:var(--bg);display:flex;align-items:center;justify-content:center}
+    .login-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:40px;width:min(400px,90vw);text-align:center}
+    .login-box h2{margin-bottom:8px;font-size:24px;font-weight:800}
+    .login-box p{color:var(--text-secondary);font-size:14px;margin-bottom:24px}
+    .login-box .admin-input{margin-bottom:14px}
+    .login-error{color:#ef4444;font-size:13px;margin-top:8px;min-height:20px}
+    @media(max-width:960px){.admin-shell{grid-template-columns:1fr}.admin-sidebar{position:static;height:auto}.admin-main{padding:18px}}
+  </style>
+</head>
+<body>
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="logo-icon logo-image" style="width:52px;height:52px;margin:0 auto 16px;border-radius:14px;"><img src="/assets/brand-logo-64.png?v=202603222210" alt="logo"></div>
+    <h2>OpenClaw Admin</h2>
+    <p>请输入管理员账号登录</p>
+    <input id="loginUser" class="admin-input" placeholder="用户名" autocomplete="username">
+    <input id="loginPass" class="admin-input" type="password" placeholder="密码" autocomplete="current-password">
+    <button id="loginBtn" class="btn btn-primary btn-block">登录</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<div id="mainContent" style="display:none;">
+  <div class="admin-shell">
+    <aside class="admin-sidebar">
+      <div class="admin-brand"><span class="logo-icon logo-image"><img src="/assets/brand-logo-64.png?v=202603222210" alt="logo"></span><span>OpenClaw Admin</span></div>
+      <nav class="admin-nav">
+        <a href="#overview" data-page="overview" class="active">概览</a>
+        <a href="#versions" data-page="versions">版本管理</a>
+        <a href="#community" data-page="community">社区管理</a>
+        <a href="#stats" data-page="stats">统计概览</a>
+      </nav>
+      <div style="margin-top:18px;">
+        <button class="btn btn-secondary btn-block" onclick="doLogout()">退出登录</button>
+      </div>
+    </aside>
+    <main class="admin-main">
+      <div class="admin-topbar">
+        <div>
+          <h1 style="font-size:28px;font-weight:800;">平台管理后台</h1>
+          <p style="color:var(--text-secondary);font-size:14px;margin-top:4px;">统一管理版本、社区与数据</p>
+        </div>
+        <div id="adminUser" style="color:var(--text-muted);font-size:13px;"></div>
+      </div>
+
+      <section class="admin-page active" id="page-overview">
+        <div class="grid grid-4">
+          <div class="card"><h3>最新版本</h3><div class="kpi" id="ovLatest">-</div><p id="ovLatestMeta">加载中...</p></div>
+          <div class="card"><h3>近7天下载</h3><div class="kpi" id="ovDownloads">-</div><p>下载趋势概览</p></div>
+          <div class="card"><h3>近7天浏览</h3><div class="kpi" id="ovViews">-</div><p>页面访问事件</p></div>
+          <div class="card"><h3>社区帖子</h3><div class="kpi" id="ovPosts">-</div><p id="ovHidden">隐藏帖子 0</p></div>
+        </div>
+        <div class="grid grid-2" style="margin-top:20px;">
+          <div class="card"><h3>快速操作</h3><div class="admin-actions" style="margin-top:14px;"><button class="btn btn-primary" onclick="switchPage('versions')">发布版本</button><button class="btn btn-secondary" onclick="switchPage('community')">管理社区</button><a class="btn btn-secondary" href="/dashboard/" target="_blank">打开公开数据面板</a></div></div>
+          <div class="card"><h3>平台健康</h3><div id="healthBox" style="margin-top:14px;color:var(--text-secondary);">加载中...</div></div>
+        </div>
+      </section>
+
+      <section class="admin-page" id="page-versions">
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>上传并发布</h3>
+            <div style="margin-top:16px;display:grid;gap:14px;">
+              <input type="file" id="uploadInput" class="admin-input" style="padding:10px;" accept=".exe,.msi,.zip,.dmg,.deb,.rpm,.appimage,.tar.gz">
+              <label>安装包绝对路径<input id="file" class="admin-input" placeholder="/root/.../OpenClaw-Installer-Setup-1.0.1.exe"></label>
+              <label>版本号<input id="version" class="admin-input" placeholder="1.0.1"></label>
+              <label>平台<select id="platform" class="admin-input"><option value="windows-x64">windows-x64</option><option value="macos-arm64">macos-arm64</option><option value="linux-x64">linux-x64</option></select></label>
+              <label>发布说明<textarea id="notes" class="admin-input" rows="5" placeholder="本次更新内容..."></textarea></label>
+              <label style="display:flex;align-items:center;gap:10px;"><input type="checkbox" id="latest" checked> 设为最新版本</label>
+              <div class="admin-actions"><button id="uploadBtn" class="btn btn-secondary">仅上传</button><button id="publishBtn" class="btn btn-primary">一键发布</button><button id="uploadAndPublishBtn" class="btn btn-secondary">上传后直接发布</button></div>
+              <div id="uploadResult" style="font-size:13px;color:var(--text-secondary);"></div>
+              <div id="publishResult" style="font-size:13px;color:var(--text-secondary);"></div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>版本列表</h3>
+            <div id="versionsList" style="margin-top:16px;color:var(--text-secondary)">加载中...</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-page" id="page-community">
+        <div class="card">
+          <h3>社区帖子管理</h3>
+          <div id="communityAdminList" style="margin-top:16px;color:var(--text-secondary)">加载中...</div>
+        </div>
+      </section>
+
+      <section class="admin-page" id="page-stats">
+        <div class="grid grid-3" id="statsCards"></div>
+        <div class="grid grid-2" style="margin-top:20px;">
+          <div class="card"><h3>来源归类</h3><div id="statsSourceGroups" style="margin-top:14px;color:var(--text-secondary)">加载中...</div></div>
+          <div class="card"><h3>近7天趋势图</h3><canvas id="adminTrendCanvas" height="110" style="margin-top:14px;width:100%;"></canvas><div id="statsTrend" style="margin-top:14px;color:var(--text-secondary)">加载中...</div></div>
+        </div>
+        <div class="grid grid-2" style="margin-top:20px;">
+          <div class="card"><h3>社区行为</h3><div id="communityActions" style="margin-top:14px;color:var(--text-secondary)">加载中...</div></div>
+          <div class="card"><h3>CTA 行为</h3><div id="ctaActions" style="margin-top:14px;color:var(--text-secondary)">加载中...</div></div>
+        </div>
+        <div class="grid grid-2" style="margin-top:20px;">
+          <div class="card"><h3>事件类型排行</h3><div id="eventTypesBox" style="margin-top:14px;color:var(--text-secondary)">加载中...</div></div>
+          <div class="card"><h3>页面活跃排行</h3><div id="eventPagesBox" style="margin-top:14px;color:var(--text-secondary)">加载中...</div></div>
+        </div>
+        <div class="grid grid-2" style="margin-top:20px;">
+          <div class="card"><h3>热门按钮文案</h3><div id="ctaTopBox" style="margin-top:14px;color:var(--text-secondary)">加载中...</div></div>
+          <div class="card"><h3>热门跳转链接</h3><div id="ctaHrefBox" style="margin-top:14px;color:var(--text-secondary)">加载中...</div></div>
+        </div>
+        <div class="grid grid-2" style="margin-top:20px;">
+          <div class="card"><h3>社区标签热点</h3><div id="communityTagsBox" style="margin-top:14px;color:var(--text-secondary)">加载中...</div></div>
+          <div class="card"><h3>社区排序偏好</h3><div id="communitySortsBox" style="margin-top:14px;color:var(--text-secondary)">加载中...</div></div>
+        </div>
+        <div class="grid grid-2" style="margin-top:20px;">
+          <div class="card"><h3>地理分布（预备）</h3><div id="geoBox" style="margin-top:14px;color:var(--text-secondary)">加载中...</div></div>
+          <div class="card"><h3>Geo 状态</h3><div id="geoStatusBox" style="margin-top:14px;color:var(--text-secondary)">加载中...</div></div>
+        </div>
+        <div class="card" style="margin-top:20px;"><h3>下载 / 社区转化漏斗</h3><div id="funnelBox" style="margin-top:14px;color:var(--text-secondary)">加载中...</div></div>
+        <div class="card" style="margin-top:20px;"><h3>最近事件</h3><div id="recentEventsBox" style="margin-top:14px;color:var(--text-secondary)">加载中...</div></div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script>
+let csrfToken=''; let currentUser='';
+function drawSimpleLine(containerId, items, color){ const c=document.getElementById(containerId); if(!c) return; const ctx=c.getContext('2d'); const W=c.width=c.clientWidth*2; const H=c.height=220; ctx.clearRect(0,0,W,H); const pad=26; const vals=items.map(x=>x.count); const max=Math.max(1,...vals,1); ctx.strokeStyle='rgba(255,255,255,.10)'; for(let i=0;i<4;i++){ const y=pad+(H-pad*2)*(i/3); ctx.beginPath(); ctx.moveTo(pad,y); ctx.lineTo(W-pad,y); ctx.stroke(); } if(!vals.length) return; ctx.beginPath(); vals.forEach((v,i)=>{ const x=pad+(W-pad*2)*(i/Math.max(1,vals.length-1)); const y=H-pad-(H-pad*2)*(v/max); if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y); }); ctx.strokeStyle=color; ctx.lineWidth=4; ctx.stroke(); vals.forEach((v,i)=>{ const x=pad+(W-pad*2)*(i/Math.max(1,vals.length-1)); const y=H-pad-(H-pad*2)*(v/max); ctx.beginPath(); ctx.arc(x,y,5,0,Math.PI*2); ctx.fillStyle=color; ctx.fill(); }); }
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function setText(id,text,color){const el=document.getElementById(id); if(!el) return; el.textContent=text; if(color) el.style.color=color;}
+function authHeaders(extra){ const h=Object.assign({'X-CSRF-Token': csrfToken}, extra||{}); return h; }
+function switchPage(name){ document.querySelectorAll('.admin-nav a').forEach(a=>a.classList.toggle('active',a.dataset.page===name)); document.querySelectorAll('.admin-page').forEach(p=>p.classList.toggle('active',p.id==='page-'+name)); if(name==='community') loadCommunityAdmin(); if(name==='stats') loadStatsAdmin(); if(name==='versions') loadVersions(); if(name==='overview') loadOverview(); }
+document.querySelectorAll('.admin-nav a').forEach(a=>a.onclick=(e)=>{e.preventDefault(); switchPage(a.dataset.page);});
+
+async function checkAuth(){ try{ const res=await fetch('/api/admin/me',{credentials:'include'}); if(!res.ok) return showLogin(); const data=await res.json(); csrfToken=data.csrf_token||''; currentUser=data.user||''; document.getElementById('adminUser').textContent='当前账号：'+currentUser; showMain(); }catch(e){ showLogin(); } }
+function showLogin(){ document.getElementById('loginOverlay').style.display='flex'; document.getElementById('mainContent').style.display='none'; }
+function showMain(){ document.getElementById('loginOverlay').style.display='none'; document.getElementById('mainContent').style.display='block'; loadOverview(); loadVersions(); }
+async function doLogin(){ const username=document.getElementById('loginUser').value.trim(); const password=document.getElementById('loginPass').value.trim(); if(!username||!password) return setText('loginError','请输入用户名和密码'); const res=await fetch('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password}),credentials:'include'}); const data=await res.json(); if(!data.ok) return setText('loginError',data.error||'登录失败'); csrfToken=data.csrf_token||''; currentUser=data.user||''; document.getElementById('adminUser').textContent='当前账号：'+currentUser; showMain(); }
+async function doLogout(){ await fetch('/api/admin/logout',{method:'POST',credentials:'include'}); csrfToken=''; currentUser=''; showLogin(); }
+document.getElementById('loginBtn').onclick=doLogin; document.getElementById('loginPass').addEventListener('keydown',e=>{ if(e.key==='Enter') doLogin(); });
+
+async function loadOverview(){
+  const [ov, health] = await Promise.all([fetch('/api/admin/overview',{credentials:'include'}).then(r=>r.json()), fetch('/api/health').then(r=>r.json())]);
+  document.getElementById('ovLatest').textContent = ov.latest_version ? ('v'+ov.latest_version.version) : '-';
+  document.getElementById('ovLatestMeta').textContent = ov.latest_version ? (ov.latest_version.platform + ' · ' + ov.latest_version.file_name) : '暂无';
+  document.getElementById('ovDownloads').textContent = ov.stats.downloads_7d;
+  document.getElementById('ovViews').textContent = ov.stats.page_views_7d;
+  document.getElementById('ovPosts').textContent = ov.stats.community_posts;
+  document.getElementById('ovHidden').textContent = '隐藏帖子 ' + ov.stats.community_hidden;
+  document.getElementById('healthBox').innerHTML = `<div>后端状态：<strong>${esc(health.status)}</strong></div><div style="margin-top:8px;">数据库：${health.db_exists ? '已连接' : '异常'}</div>`;
+}
+
+async function uploadSelectedFile(){ const input=document.getElementById('uploadInput'); if(!input.files.length){ setText('uploadResult','请先选择文件'); return null; } const fd=new FormData(); fd.append('file', input.files[0]); const res=await fetch('/api/admin/upload',{method:'POST',body:fd,headers:authHeaders(),credentials:'include'}); const data=await res.json(); if(!data.ok) throw new Error(data.error||'上传失败'); document.getElementById('file').value=data.file; setText('uploadResult','上传成功：'+data.file,'#22c55e'); return data.file; }
+function payload(){ return { file:document.getElementById('file').value.trim(), version:document.getElementById('version').value.trim(), platform:document.getElementById('platform').value, release_notes:document.getElementById('notes').value.trim(), is_latest:document.getElementById('latest').checked, csrf_token:csrfToken }; }
+async function publishCurrent(){ const res=await fetch('/api/admin/versions',{method:'POST',headers:authHeaders({'Content-Type':'application/json'}),body:JSON.stringify(payload()),credentials:'include'}); const data=await res.json(); if(!data.ok) throw new Error(data.error||'发布失败'); setText('publishResult','发布成功','#22c55e'); await loadVersions(); await loadOverview(); }
+async function uploadAndPublish(){ const input=document.getElementById('uploadInput'); if(!input.files.length) throw new Error('请先选择文件'); const fd=new FormData(); fd.append('file', input.files[0]); fd.append('version', document.getElementById('version').value.trim()); fd.append('platform', document.getElementById('platform').value); fd.append('release_notes', document.getElementById('notes').value.trim()); fd.append('is_latest', document.getElementById('latest').checked ? 'true' : 'false'); fd.append('csrf_token', csrfToken); const res=await fetch('/api/admin/upload-and-publish',{method:'POST',body:fd,headers:authHeaders(),credentials:'include'}); const data=await res.json(); if(!data.ok) throw new Error(data.error||'发布失败'); setText('publishResult','上传并发布成功','#22c55e'); await loadVersions(); await loadOverview(); }
+async function loadVersions(){ const res=await fetch('/api/admin/versions',{credentials:'include'}); const data=await res.json(); const list=document.getElementById('versionsList'); const versions=data.versions||[]; if(!versions.length){ list.innerHTML='暂无版本'; return; } list.innerHTML=versions.map(v=>`<div style="padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06)"><div style="display:flex;justify-content:space-between;gap:16px;align-items:flex-start;"><div><div style="font-weight:700;color:var(--text)">v${esc(v.version)} ${v.is_latest?'<span class="tag tag-latest">Latest</span>':''} <span class="pill ${v.status==='hidden'?'pill-hidden':'pill-active'}">${v.status}</span></div><div style="margin-top:6px;font-size:13px;">${esc(v.platform)} · ${esc(v.file_name)}</div><div style="margin-top:6px;font-size:12px;color:var(--text-muted)">${esc(v.published_at)}</div><textarea id="notes-${v.id}" class="admin-input" style="margin-top:10px;min-height:90px;">${esc(v.release_notes||'')}</textarea></div><div style="text-align:right;max-width:420px;"><div style="font-size:12px;word-break:break-all;" class="mono">${esc(v.sha256)}</div><div class="admin-actions" style="justify-content:flex-end;margin-top:10px;"><button class="btn btn-secondary" onclick="copyText('${esc(v.file_path)}')">复制链接</button>${!v.is_latest?`<button class="btn btn-secondary" onclick="setLatest(${v.id})">设为最新</button>`:''}<button class="btn btn-secondary" onclick="saveVersion(${v.id})">保存说明</button><button class="btn btn-secondary" onclick="toggleVersion(${v.id},'${v.status==='hidden'?'active':'hidden'}')">${v.status==='hidden'?'恢复':'隐藏'}</button><button class="btn btn-secondary" onclick="deleteVersion(${v.id})">删除</button></div></div></div></div>`).join(''); }
+async function setLatest(id){ const res=await fetch(`/api/admin/versions/${id}/latest`,{method:'POST',headers:authHeaders(),credentials:'include'}); const data=await res.json(); if(!data.ok) return alert(data.error||'失败'); await loadVersions(); await loadOverview(); }
+async function saveVersion(id){ const release_notes=document.getElementById('notes-'+id).value; const res=await fetch(`/api/admin/versions/${id}`,{method:'PATCH',headers:authHeaders({'Content-Type':'application/json'}),body:JSON.stringify({release_notes,csrf_token:csrfToken}),credentials:'include'}); const data=await res.json(); if(!data.ok) return alert(data.error||'失败'); }
+async function toggleVersion(id,status){ const res=await fetch(`/api/admin/versions/${id}`,{method:'PATCH',headers:authHeaders({'Content-Type':'application/json'}),body:JSON.stringify({status,csrf_token:csrfToken}),credentials:'include'}); const data=await res.json(); if(!data.ok) return alert(data.error||'失败'); await loadVersions(); }
+async function deleteVersion(id){ if(!confirm('确认删除该版本记录？')) return; const res=await fetch(`/api/admin/versions/${id}`,{method:'DELETE',headers:authHeaders({'Content-Type':'application/json'}),body:JSON.stringify({csrf_token:csrfToken}),credentials:'include'}); const data=await res.json(); if(!data.ok) return alert(data.error||'失败'); await loadVersions(); await loadOverview(); }
+function copyText(t){ navigator.clipboard.writeText(t); }
+
+async function loadCommunityAdmin(){ const res=await fetch('/api/admin/community/posts',{credentials:'include'}); const data=await res.json(); const el=document.getElementById('communityAdminList'); const posts=data.posts||[]; if(!posts.length){ el.innerHTML='暂无帖子'; return; } el.innerHTML=`<table class="table-lite"><thead><tr><th>ID</th><th>昵称</th><th>标签</th><th>内容</th><th>状态</th><th>时间</th><th>操作</th></tr></thead><tbody>${posts.map(p=>`<tr><td>${p.id}</td><td>${esc(p.nickname)}</td><td>${esc(p.tag)}</td><td style="max-width:420px;white-space:pre-wrap;word-break:break-word;">${esc(p.content)}</td><td>${esc(p.status)}</td><td>${esc(p.created_at)}</td><td><div class="admin-actions">${p.status==='hidden'?`<button class="btn btn-secondary" onclick="communityAction(${p.id},'restore')">恢复</button>`:`<button class="btn btn-secondary" onclick="communityAction(${p.id},'hide')">隐藏</button>`}<button class="btn btn-secondary" onclick="communityAction(${p.id},'delete')">删除</button></div></td></tr>`).join('')}</tbody></table>`; }
+async function communityAction(id,action){ const map={hide:'POST',restore:'POST',delete:'DELETE'}; const url=action==='delete'?`/api/admin/community/posts/${id}`:`/api/admin/community/posts/${id}/${action}`; const res=await fetch(url,{method:map[action],credentials:'include'}); const data=await res.json(); if(!data.ok) return alert(data.error||'失败'); await loadCommunityAdmin(); await loadOverview(); }
+
+async function loadStatsAdmin(){ const [data, eventRes, summary]=await Promise.all([fetch('/api/stats').then(r=>r.json()), fetch('/api/admin/community/posts',{credentials:'include'}).then(r=>r.json()).catch(()=>({posts:[]})), fetch('/api/admin/analytics/summary',{credentials:'include'}).then(r=>r.json()).catch(()=>({}))]); const cards=[[ '总下载', data.total ], [ '今日下载', data.today ], [ '近30天下载', data.last_30_days ], [ '近30天浏览', data.page_views_30d ], [ 'CTA点击', data.cta_clicks_30d ], [ '唯一IP', data.unique_ips_30d ]]; document.getElementById('statsCards').innerHTML=cards.map(([t,v])=>`<div class="card"><h3>${t}</h3><div class="kpi">${v}</div></div>`).join(''); document.getElementById('statsSourceGroups').innerHTML=(data.by_source_group||[]).map(x=>`<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span>${esc(x.source)}</span><strong>${x.count}</strong></div>`).join('')||'暂无数据'; document.getElementById('statsTrend').innerHTML=(data.last_7_days||[]).map(x=>`<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span>${esc(x.date)}</span><strong>${x.count}</strong></div>`).join('')||'暂无数据'; drawSimpleLine('adminTrendCanvas', (data.last_7_days||[]).slice().reverse(), '#3b82f6'); document.getElementById('communityActions').innerHTML=`<div>当前帖子数：<strong>${(eventRes.posts||[]).length}</strong></div><div style="margin-top:8px;">发帖事件：<strong>${(summary.by_type||[]).find(x=>x.event_type==='community_post_create')?.count||0}</strong></div><div style="margin-top:8px;">点赞事件：<strong>${(summary.by_type||[]).find(x=>x.event_type==='community_post_like')?.count||0}</strong></div><div style="margin-top:8px;color:var(--text-muted);font-size:13px;">筛选/排序事件也已纳入统计</div>`; document.getElementById('ctaActions').innerHTML=`<div>近30天 CTA 点击：<strong>${data.cta_clicks_30d||0}</strong></div><div style="margin-top:8px;">下载点击：<strong>${(summary.by_type||[]).find(x=>x.event_type==='download_click')?.count||0}</strong></div><div style="margin-top:8px;color:var(--text-muted);font-size:13px;">页面浏览：<strong>${data.page_views_30d||0}</strong></div>`; document.getElementById('eventTypesBox').innerHTML=(summary.by_type||[]).map(x=>`<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span>${esc(x.event_type)}</span><strong>${x.count}</strong></div>`).join('')||'暂无数据'; document.getElementById('eventPagesBox').innerHTML=(summary.by_page||[]).map(x=>`<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span>${esc(x.page)}</span><strong>${x.count}</strong></div>`).join('')||'暂无数据'; document.getElementById('ctaTopBox').innerHTML=(summary.cta_top||[]).map(x=>`<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span>${esc(x.text)}</span><strong>${x.count}</strong></div>`).join('')||'暂无数据'; document.getElementById('ctaHrefBox').innerHTML=(summary.cta_href_top||[]).map(x=>`<div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span style="max-width:75%;word-break:break-all;">${esc(x.href)}</span><strong>${x.count}</strong></div>`).join('')||'暂无数据'; document.getElementById('communityTagsBox').innerHTML=(summary.community_tags||[]).map(x=>`<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span>${esc(x.tag)}</span><strong>${x.count}</strong></div>`).join('')||'暂无数据'; document.getElementById('communitySortsBox').innerHTML=(summary.community_sorts||[]).map(x=>`<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span>${esc(x.sort)}</span><strong>${x.count}</strong></div>`).join('')||'暂无数据'; document.getElementById('geoBox').innerHTML=(summary.countries||[]).map(x=>`<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span>${esc(x.country)}</span><strong>${x.count}</strong></div>`).join('')||'暂无数据'; document.getElementById('geoStatusBox').innerHTML=`<div>${esc(summary.geo_status||'unknown')}</div><div style="margin-top:8px;color:var(--text-muted);font-size:13px;">当前未接外部 IP 地理解析，先保留 Unknown/预留结构，避免把访客 IP 发到第三方。</div>`; const f=summary.funnel||{}; const fr=summary.funnel_rates||{}; document.getElementById('funnelBox').innerHTML=`<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;"><div style="padding:14px;border:1px solid rgba(255,255,255,.08);border-radius:12px;background:rgba(255,255,255,.03)"><div style="font-size:12px;color:var(--text-muted)">首页访问</div><div style="font-size:28px;font-weight:800;color:var(--text);margin-top:6px;">${f.home_views||0}</div></div><div style="padding:14px;border:1px solid rgba(255,255,255,.08);border-radius:12px;background:rgba(255,255,255,.03)"><div style="font-size:12px;color:var(--text-muted)">下载页访问</div><div style="font-size:28px;font-weight:800;color:var(--text);margin-top:6px;">${f.downloads_views||0}</div><div style="margin-top:6px;font-size:12px;color:var(--primary-hover);">转化 ${fr.home_to_downloads||0}%</div></div><div style="padding:14px;border:1px solid rgba(255,255,255,.08);border-radius:12px;background:rgba(255,255,255,.03)"><div style="font-size:12px;color:var(--text-muted)">下载点击</div><div style="font-size:28px;font-weight:800;color:var(--text);margin-top:6px;">${f.download_clicks||0}</div><div style="margin-top:6px;font-size:12px;color:var(--primary-hover);">转化 ${fr.downloads_to_click||0}%</div></div><div style="padding:14px;border:1px solid rgba(255,255,255,.08);border-radius:12px;background:rgba(255,255,255,.03)"><div style="font-size:12px;color:var(--text-muted)">社区访问</div><div style="font-size:28px;font-weight:800;color:var(--text);margin-top:6px;">${f.community_views||0}</div></div></div><div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px;"><div style="padding:14px;border:1px solid rgba(255,255,255,.08);border-radius:12px;background:rgba(255,255,255,.03)"><div style="font-size:12px;color:var(--text-muted)">社区发帖</div><div style="font-size:24px;font-weight:800;color:var(--text);margin-top:6px;">${f.community_posts||0}</div><div style="margin-top:6px;font-size:12px;color:var(--primary-hover);">转化 ${fr.community_view_to_post||0}%</div></div><div style="padding:14px;border:1px solid rgba(255,255,255,.08);border-radius:12px;background:rgba(255,255,255,.03)"><div style="font-size:12px;color:var(--text-muted)">社区点赞</div><div style="font-size:24px;font-weight:800;color:var(--text);margin-top:6px;">${f.community_likes||0}</div><div style="margin-top:6px;font-size:12px;color:var(--primary-hover);">转化 ${fr.community_post_to_like||0}%</div></div><div style="padding:14px;border:1px solid rgba(255,255,255,.08);border-radius:12px;background:rgba(255,255,255,.03)"><div style="font-size:12px;color:var(--text-muted)">CTA 总点击</div><div style="font-size:24px;font-weight:800;color:var(--text);margin-top:6px;">${f.cta_clicks||0}</div></div></div>`; document.getElementById('recentEventsBox').innerHTML=(summary.recent_events||[]).map(x=>`<div style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)"><div style="font-weight:700;color:var(--text)">${esc(x.event_type)}</div><div style="font-size:12px;color:var(--text-muted);margin-top:4px;">page=${esc(x.page)} · country=${esc(x.country||'Unknown')} · ${esc(x.created_at)}</div></div>`).join('')||'暂无数据'; }
+
+document.getElementById('uploadBtn').onclick=async()=>{ try{ await uploadSelectedFile(); }catch(e){ setText('uploadResult','上传失败：'+e.message,'#ef4444'); } };
+document.getElementById('publishBtn').onclick=async()=>{ try{ await publishCurrent(); }catch(e){ setText('publishResult','发布失败：'+e.message,'#ef4444'); } };
+document.getElementById('uploadAndPublishBtn').onclick=async()=>{ try{ await uploadAndPublish(); }catch(e){ setText('publishResult','执行失败：'+e.message,'#ef4444'); } };
+checkAuth();
+</script>
+</body>
+</html>

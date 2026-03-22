@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenClaw - 你的 AI 助手，一键安装</title>
+  <meta name="description" content="OpenClaw 官方下载中心。安全、透明、可验证的 Windows 安装包，SHA256 校验，版本历史完整可追溯。">
+  <meta name="theme-color" content="#09090b">
+  <link rel="icon" href="/favicon.ico?v=202603221725">
+  <link rel="stylesheet" href="/assets/styles.css?v=202603222130">
+  <meta property="og:title" content="OpenClaw - 你的 AI 助手，一键安装">
+  <meta property="og:description" content="OpenClaw 官方下载中心。安全、透明、可验证的 Windows 安装包，SHA256 校验，版本历史完整可追溯。">
+  <meta property="og:url" content="https://download.zhjjq.tech/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="OpenClaw">
+  <meta property="og:image" content="https://download.zhjjq.tech/assets/og-image.jpg?v=202603221725">
+  <meta name="twitter:card" content="summary">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="/">
+        <span class="logo-icon logo-image"><img src="/assets/brand-logo-64.png?v=202603221725" alt="OpenClaw logo"></span>
+        <span>OpenClaw</span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="/downloads/">下载</a>
+        <a href="/guide/">安装指南</a>
+        <a href="/security/">安全校验</a>
+        <a href="/releases/">版本历史</a>
+        <a href="/community/">社区</a>
+    <a href="https://docs.openclaw.ai" target="_blank">文档</a>
+      </nav>
+      <a class="nav-cta" href="/downloads/">立即下载</a>
+      <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="菜单">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-content animate-in">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        <span data-dynamic="latest-hero-badge">v1.0.0 正式发布</span>
+      </div>
+      <h1>你的私人 AI 助手<br>一键安装，即刻启动</h1>
+      <p class="lead">OpenClaw 是一个强大的本地 AI 助手平台。官方安装包经过完整校验，从下载到运行，每一步都安全透明。</p>
+      <div class="os-badge" id="os-detect" style="display:none;"></div>
+      <div class="hero-brand-note"><img src="/assets/brand-logo-64.png?v=202603221725" alt="brand"> 官方品牌下载站 · 统一版本交付与校验</div>
+      <div class="hero-actions">
+        <a class="btn btn-primary btn-lg" href="/downloads/OpenClaw-Installer-Setup-1.0.0.exe" data-dynamic-href="latest-download">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span data-dynamic="latest-download-label">下载 Windows 安装包 (163 MB)</span>
+        </a>
+        <a class="btn btn-secondary btn-lg" href="/guide/">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+          查看安装指南
+        </a>
+      </div>
+      <div class="brand-hero-card"><div class="brand-hero-card-inner"><img src="/assets/brand-logo.png?v=202603221725" alt="OpenClaw brand"><div><h3>统一下载、统一校验、统一版本交付</h3><p>这不是一个临时下载页，而是一个可持续维护的官方下载中心：有版本记录、有安全校验、有安装指引、有数据统计，也支持后续继续自动化发版。</p></div></div></div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="num" data-dynamic="latest-size">163 MB</div>
+          <div class="label">安装包大小</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">Windows</div>
+          <div class="label">x64 平台</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">SHA256</div>
+          <div class="label">完整校验</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num" data-dynamic="latest-version">v1.0.0</div>
+          <div class="label">稳定版本</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header animate-in">
+        <div class="overline">为什么选择官方下载</div>
+        <h2>安全、透明、可持续</h2>
+        <p>像 Python、Node.js、Docker 官网一样，提供完整的下载交付体系</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="card animate-in animate-delay-1">
+          <div class="card-icon blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>官方唯一来源</h3>
+          <p>统一的官方下载入口，不依赖群文件、网盘或聊天附件分发，杜绝来源混乱与篡改风险。</p>
+        </div>
+        <div class="card animate-in animate-delay-2">
+          <div class="card-icon green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>可验证的安全链路</h3>
+          <p>每个版本公开 SHA256 校验值、文件大小与发布时间，用户可自行验证文件完整性。</p>
+        </div>
+        <div class="card animate-in animate-delay-3">
+          <div class="card-icon purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+          </div>
+          <h3>可持续版本迭代</h3>
+          <p>从第一版起建立完整的版本页、更新日志与历史下载，后续发版规范有序。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Start -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <div class="overline">快速开始</div>
+        <h2>三步完成安装</h2>
+        <p>从下载到运行，整个过程简单明了</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="card" style="text-align:center;">
+          <div class="card-icon blue" style="margin:0 auto 16px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </div>
+          <h3>1. 下载安装包</h3>
+          <p>从官方下载页获取最新版本安装包，确认文件名与版本号匹配。</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div class="card-icon amber" style="margin:0 auto 16px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>2. 验证 SHA256</h3>
+          <p>在安全校验页核对哈希值，确认安装包未被篡改，来源可信。</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div class="card-icon green" style="margin:0 auto 16px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3>3. 安装并启动</h3>
+          <p>双击运行安装器，按向导完成配置，即刻开始使用 OpenClaw。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download Preview -->
+  <section class="section">
+    <div class="container">
+      <div class="grid grid-2">
+        <div class="dl-card">
+          <div class="version-tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            Stable
+          </div>
+          <h2>OpenClaw <span data-dynamic="latest-version">v1.0.0</span></h2>
+          <div class="dl-meta">
+            <div class="dl-meta-row">
+              <span class="meta-label">平台</span>
+              <span class="meta-value">Windows 10 / 11 (x64)</span>
+            </div>
+            <div class="dl-meta-row">
+              <span class="meta-label">文件大小</span>
+              <span class="meta-value" data-dynamic="latest-size">163.0 MB</span>
+            </div>
+            <div class="dl-meta-row">
+              <span class="meta-label">发布日期</span>
+              <span class="meta-value" data-dynamic="latest-date">2026-03-20</span>
+            </div>
+            <div class="dl-meta-row">
+              <span class="meta-label">SHA256</span>
+              <span class="meta-value mono" data-dynamic="latest-sha-short">33266b050...189d6f9c</span>
+            </div>
+          </div>
+          <div class="os-badge" id="os-detect" style="display:none;margin-bottom:16px;"></div>
+          <div class="dl-actions">
+            <a class="btn btn-primary" href="/downloads/OpenClaw-Installer-Setup-1.0.0.exe" data-dynamic-href="latest-download">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              立即下载
+            </a>
+            <a class="btn btn-secondary" href="/security/">查看完整校验</a>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="margin-bottom:20px;">
+            <h3>系统要求</h3>
+            <div class="req-list" style="margin-top:16px;">
+              <div class="req-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Windows 10 或 Windows 11（64 位）
+              </div>
+              <div class="req-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                2 GB 以上可用磁盘空间
+              </div>
+              <div class="req-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                首次安装建议保持联网
+              </div>
+              <div class="req-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                需要可用的 AI Provider API Key
+              </div>
+            </div>
+          </div>
+          <div class="notice notice-warn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <div>首版安装包尚未做代码签名，Windows Defender 可能提示"未识别的应用"。请先核对 SHA256 再决定是否放行。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Site Map -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <div class="overline">站点导航</div>
+        <h2>完整的下载交付体系</h2>
+        <p>每个页面各司其职，构成专业的软件分发链路</p>
+      </div>
+      <div class="grid grid-4">
+        <a class="card" href="/downloads/" style="text-decoration:none;">
+          <div class="card-icon blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </div>
+          <h3>下载中心</h3>
+          <p>官方安装包、版本信息、系统要求与快速开始。</p>
+        </a>
+        <a class="card" href="/guide/" style="text-decoration:none;">
+          <div class="card-icon green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+          </div>
+          <h3>安装指南</h3>
+          <p>从下载到运行的完整教程，常见问题自助解决。</p>
+        </a>
+        <a class="card" href="/security/" style="text-decoration:none;">
+          <div class="card-icon amber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>安全校验</h3>
+          <p>SHA256 校验值、验证命令与下载安全建议。</p>
+        </a>
+        <a class="card" href="/releases/" style="text-decoration:none;">
+          <div class="card-icon purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+          </div>
+          <h3>版本历史</h3>
+          <p>更新日志、版本策略与历史版本下载。</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>准备好开始了吗？</h2>
+      <p>下载 OpenClaw，开启你的 AI 助手之旅</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary btn-lg" href="/downloads/OpenClaw-Installer-Setup-1.0.0.exe" data-dynamic-href="latest-download">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span data-dynamic="latest-download-short">下载 v1.0.0 (163 MB)</span>
+        </a>
+        <a class="btn btn-secondary btn-lg" href="https://github.com/openclaw/openclaw" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">
+            <span class="logo-icon logo-image"><img src="/assets/brand-logo-64.png?v=202603221725" alt="OpenClaw logo"></span>
+            <span>OpenClaw</span>
+          </div>
+          <p>你的私人 AI 助手平台。安全下载，透明校验，持续更新。</p>
+        </div>
+        <div class="footer-col">
+          <h4>产品</h4>
+          <a href="/downloads/">下载中心</a>
+          <a href="/guide/">安装指南</a>
+          <a href="/releases/">版本历史</a>
+          <a href="/security/">安全校验</a>
+        </div>
+        <div class="footer-col">
+          <h4>资源</h4>
+          <a href="https://docs.openclaw.ai" target="_blank">官方文档</a>
+          <a href="https://github.com/openclaw/openclaw" target="_blank">GitHub</a>
+          <a href="https://clawhub.com" target="_blank">ClawHub 技能市场</a>
+          <a href="https://discord.com/invite/clawd" target="_blank">Discord 社区</a>
+        </div>
+        <div class="footer-col">
+          <h4>支持</h4>
+          <a href="/guide/#faq">常见问题</a>
+          <a href="https://github.com/openclaw/openclaw/issues" target="_blank">反馈问题</a>
+          <a href="/security/">安全说明</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 OpenClaw. All rights reserved.</span>
+        <div class="footer-bottom-links">
+          <a href="https://github.com/openclaw/openclaw" target="_blank">GitHub</a>
+          <a href="https://docs.openclaw.ai" target="_blank">Docs</a>
+          <a href="https://discord.com/invite/clawd" target="_blank">Community</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var links = document.querySelectorAll('.nav-links a');
+      for (var i = 0; i < links.length; i++) {
+        links[i].addEventListener('click', function() {
+          document.getElementById('navLinks').classList.remove('open');
+        });
+      }
+    });
+  </script>
+  <script src="/assets/site.js?v=202603222130"></script>
+
+  <!-- Particle Background -->
+  <canvas id="particleCanvas" style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.4"></canvas>
+  <script>
+  (function(){
+    var c=document.getElementById('particleCanvas'),ctx=c.getContext('2d');
+    var particles=[],count=60,mouse={x:0,y:0};
+    function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+    resize();window.addEventListener('resize',resize);
+    document.addEventListener('mousemove',function(e){mouse.x=e.clientX;mouse.y=e.clientY;});
+    for(var i=0;i<count;i++){
+      particles.push({
+        x:Math.random()*c.width,y:Math.random()*c.height,
+        vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,
+        r:Math.random()*1.5+.5,
+        o:Math.random()*.5+.1
+      });
+    }
+    function draw(){
+      ctx.clearRect(0,0,c.width,c.height);
+      for(var i=0;i<particles.length;i++){
+        var p=particles[i];
+        p.x+=p.vx;p.y+=p.vy;
+        if(p.x<0)p.x=c.width;if(p.x>c.width)p.x=0;
+        if(p.y<0)p.y=c.height;if(p.y>c.height)p.y=0;
+        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle='rgba(59,130,246,'+p.o+')';ctx.fill();
+        // Connect nearby particles
+        for(var j=i+1;j<particles.length;j++){
+          var q=particles[j];
+          var dx=p.x-q.x,dy=p.y-q.y,dist=Math.sqrt(dx*dx+dy*dy);
+          if(dist<150){
+            ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);
+            ctx.strokeStyle='rgba(59,130,246,'+(1-dist/150)*.12+')';
+            ctx.lineWidth=.5;ctx.stroke();
+          }
+        }
+        // Mouse interaction
+        var mdx=p.x-mouse.x,mdy=p.y-mouse.y,mdist=Math.sqrt(mdx*mdx+mdy*mdy);
+        if(mdist<200){
+          ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(mouse.x,mouse.y);
+          ctx.strokeStyle='rgba(59,130,246,'+(1-mdist/200)*.15+')';
+          ctx.lineWidth=.5;ctx.stroke();
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+  </script>
+
+</body>
+</html>

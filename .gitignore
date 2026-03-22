@@ -1,0 +1,9 @@
+backend/venv/
+backend/__pycache__/
+data/*.db
+logs/
+downloads/*.exe
+downloads/*.msi
+downloads/*.zip
+*.pyc
+.env

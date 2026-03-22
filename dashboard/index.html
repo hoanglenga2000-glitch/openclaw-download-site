@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>下载数据面板 - OpenClaw</title>
+  <link rel="icon" href="/favicon.ico?v=202603221725">
+  <link rel="stylesheet" href="/assets/styles.css?v=202603222130">
+  <style>
+    .login-overlay{position:fixed;inset:0;z-index:999;background:var(--bg);display:flex;align-items:center;justify-content:center}
+    .login-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:40px;width:min(400px,90vw);text-align:center}
+    .login-box h2{margin-bottom:8px;font-size:24px;font-weight:800}
+    .login-box p{color:var(--text-secondary);font-size:14px;margin-bottom:24px}
+    .login-box .admin-input{margin-bottom:14px}
+    .login-error{color:#ef4444;font-size:13px;margin-top:8px;min-height:20px}
+  </style>
+</head>
+<body>
+
+<!-- 登录遮罩 -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="logo-icon logo-image" style="width:48px;height:48px;margin:0 auto 16px;border-radius:12px;"><img src="/assets/brand-logo-64.png?v=202603221725" alt="logo"></div>
+    <h2>数据面板</h2>
+    <p>请输入管理员账号查看数据</p>
+    <input id="loginUser" class="admin-input" placeholder="用户名" autocomplete="username">
+    <input id="loginPass" class="admin-input" type="password" placeholder="密码" autocomplete="current-password">
+    <button id="loginBtn" class="btn btn-primary btn-block" style="margin-top:4px;">登录</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<!-- 主内容 -->
+<div id="mainContent" style="display:none;">
+<header class="site-header"><div class="container header-inner">
+  <a class="logo" href="/"><span class="logo-icon logo-image"><img src="/assets/brand-logo-64.png?v=202603221725" alt="logo"></span><span>OpenClaw</span></a>
+  <nav class="nav-links" id="navLinks">
+    <a href="/downloads/">下载</a><a href="/guide/">安装指南</a><a href="/security/">安全校验</a><a href="/releases/">版本历史</a><a href="/dashboard/" class="active">数据面板</a><a href="/community/">社区</a><a href="/admin/">版本管理</a>
+  </nav>
+  <button class="btn btn-secondary" style="height:36px;font-size:13px;" onclick="doLogout()">退出登录</button>
+</div></header>
+
+<section class="page-hero"><div class="container"><h1>下载数据面板</h1><p>查看下载统计、版本信息与最近趋势。</p></div></section>
+
+<section class="section"><div class="container">
+  <div class="grid grid-3" id="statsGrid"></div>
+  <div class="card" style="margin-top:20px;"><h3>最近 7 天下载趋势</h3><canvas id="chartCanvas7d" height="120" style="margin-top:14px;width:100%;"></canvas><div id="trend" style="margin-top:14px;color:var(--text-secondary)">加载中...</div></div>
+  <div id="extraCharts"></div>
+  <div class="card" style="margin-top:20px;"><h3>版本列表</h3><div id="versions" style="margin-top:14px;color:var(--text-secondary)">加载中...</div></div>
+</div></section>
+</div>
+
+<script>
+// ── 登录逻辑 ──
+async function checkAuth(){
+  try{const res=await fetch('/api/admin/me',{credentials:'include'});if(res.ok){showMain();return;}}catch(e){}
+  showLogin();
+}
+function showLogin(){document.getElementById('loginOverlay').style.display='flex';document.getElementById('mainContent').style.display='none';}
+function showMain(){document.getElementById('loginOverlay').style.display='none';document.getElementById('mainContent').style.display='block';loadDashboard();}
+async function doLogin(){
+  const user=document.getElementById('loginUser').value.trim();
+  const pass=document.getElementById('loginPass').value.trim();
+  if(!user||!pass){document.getElementById('loginError').textContent='请输入用户名和密码';return;}
+  try{
+    const res=await fetch('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:user,password:pass}),credentials:'include'});
+    const data=await res.json();
+    if(data.ok)showMain();else document.getElementById('loginError').textContent=data.error||'登录失败';
+  }catch(e){document.getElementById('loginError').textContent='网络错误';}
+}
+async function doLogout(){
+  await fetch('/api/admin/logout',{method:'POST',credentials:'include'});
+  showLogin();document.getElementById('loginUser').value='';document.getElementById('loginPass').value='';document.getElementById('loginError').textContent='';
+}
+document.getElementById('loginBtn').onclick=doLogin;
+document.getElementById('loginPass').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});
+
+// ── 图表 ──
+function drawLineChart(id,labels,values){
+  const c=document.getElementById(id);if(!c)return;
+  const ctx=c.getContext('2d');const W=c.width=c.clientWidth*2;const H=c.height=240;
+  ctx.clearRect(0,0,W,H);
+  const pad=28;const max=Math.max(1,...values,1);
+  ctx.strokeStyle='rgba(255,255,255,.10)';ctx.lineWidth=1;
+  for(let i=0;i<4;i++){const y=pad+(H-pad*2)*(i/3);ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(W-pad,y);ctx.stroke();}
+  if(!values.length){ctx.fillStyle='rgba(255,255,255,.45)';ctx.font='14px sans-serif';ctx.fillText('暂无数据',pad,H/2);return;}
+  ctx.beginPath();values.forEach((v,i)=>{const x=pad+(W-pad*2)*(i/Math.max(1,values.length-1));const y=H-pad-(H-pad*2)*(v/max);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
+  ctx.strokeStyle='#3b82f6';ctx.lineWidth=4;ctx.stroke();
+  values.forEach((v,i)=>{const x=pad+(W-pad*2)*(i/Math.max(1,values.length-1));const y=H-pad-(H-pad*2)*(v/max);ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fillStyle='#60a5fa';ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,.7)';ctx.font='12px sans-serif';ctx.textAlign='center';ctx.fillText(v,x,y-12);
+  });
+  // X轴标签
+  ctx.fillStyle='rgba(255,255,255,.4)';ctx.font='11px sans-serif';ctx.textAlign='center';
+  labels.forEach((l,i)=>{const x=pad+(W-pad*2)*(i/Math.max(1,labels.length-1));ctx.fillText(l.slice(5),x,H-6);});
+}
+
+function drawMiniBars(container,items,color){
+  if(!items.length){container.innerHTML='<div style="color:var(--text-muted);padding:8px 0;">暂无数据</div>';return;}
+  const max=Math.max(1,...items.map(x=>x.count));
+  container.innerHTML='<div style="display:flex;align-items:end;gap:8px;height:180px;padding-top:10px;">'+items.map(x=>`<div style=\"flex:1;display:flex;flex-direction:column;justify-content:end;align-items:center;gap:8px;\"><div style=\"width:100%;max-width:56px;height:${Math.max(8,x.count/max*140)}px;background:${color};border-radius:10px 10px 4px 4px;\"></div><div style=\"font-size:11px;color:var(--text-muted);text-align:center;\">${x.source||x.label}</div><div style=\"font-size:11px;color:var(--text);font-weight:700;\">${x.count}</div></div>`).join('')+'</div>';
+}
+
+function drawBarChart(container,items,color){
+  if(!items.length){container.innerHTML='<div style="color:var(--text-muted);padding:8px 0;">暂无数据</div>';return;}
+  const max=Math.max(1,...items.map(x=>x.count));
+  container.innerHTML=items.map(x=>`<div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06)">
+    <span style="min-width:80px;font-size:13px;color:var(--text-secondary)">${x.source||x.label}</span>
+    <div style="flex:1;height:20px;background:rgba(255,255,255,.04);border-radius:4px;overflow:hidden">
+      <div style="height:100%;width:${(x.count/max*100).toFixed(1)}%;background:${color};border-radius:4px;transition:width .3s"></div>
+    </div>
+    <strong style="font-size:13px;min-width:32px;text-align:right">${x.count}</strong>
+  </div>`).join('');
+}
+
+// ── 加载数据 ──
+async function loadDashboard(){
+  try{
+    const [statsRes,versionsRes]=await Promise.all([fetch('/api/stats'),fetch('/api/versions')]);
+    const stats=await statsRes.json();const versions=await versionsRes.json();
+
+    const grid=document.getElementById('statsGrid');
+    const cards=[['总下载次数',stats.total||0],['今日下载',stats.today||0],['近30天',stats.last_30_days||0],['独立IP(30天)',stats.unique_ips_30d||0],['版本数',(versions.versions||[]).length],['来源数',(stats.by_source_group||[]).length]];
+    grid.innerHTML=cards.map(([t,v])=>`<div class="card"><h3>${t}</h3><p style="font-size:32px;color:var(--text);font-weight:800;margin-top:8px;">${v}</p></div>`).join('');
+
+    // 7天趋势
+    const trend=stats.last_7_days||[];
+    document.getElementById('trend').innerHTML=trend.length?trend.map(x=>`<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span>${x.date}</span><strong>${x.count}</strong></div>`).join(''):'暂无数据';
+    const reversed=trend.slice().reverse();
+    drawLineChart('chartCanvas7d',reversed.map(x=>x.date),reversed.map(x=>x.count));
+
+    // 来源归类 + 24小时分布（带条形图）
+    const extra=document.getElementById('extraCharts');
+    extra.innerHTML=`<div class="grid grid-2" style="margin-top:20px;">
+      <div class="card"><h3>来源归类</h3><div id="sourceChart" style="margin-top:14px;"></div></div>
+      <div class="card"><h3>近24小时柱状图</h3><div id="hourChart" style="margin-top:14px;"></div></div>
+    </div>`;
+    drawBarChart(document.getElementById('sourceChart'),stats.by_source_group||[],'#3b82f6');
+    drawMiniBars(document.getElementById('hourChart'),(stats.by_hour||[]).map(x=>({label:x.hour+':00',source:x.hour+':00',count:x.count})),'linear-gradient(180deg,#22c55e,#16a34a)');
+
+    // 版本列表
+    const versionsHtml=(versions.versions||[]).map(v=>`<div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span>v${v.version} / ${v.platform} ${v.is_latest?'<span class="tag tag-latest" style="margin-left:6px">Latest</span>':''}</span><span style="color:var(--text-muted)">${v.file_name}</span></div>`).join('')||'暂无版本数据';
+    document.getElementById('versions').innerHTML=versionsHtml;
+  }catch(e){console.error('Dashboard load error:',e);}
+}
+
+checkAuth();
+</script>
+</body>
+</html>

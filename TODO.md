@@ -1,0 +1,38 @@
+## [2026-03-22] Task: 全面升级 OpenClaw 下载系统
+- [x] 定位线上项目目录与 nginx 配置
+- [x] 修复下载统计与后端 API
+- [x] 排查“除第一个外其他页面打不开”的真实原因
+- [x] 完成前端视觉升级与 logo 替换
+- [x] 新增下载数据面板 /dashboard/
+- [x] 补充 CHANGELOG 与发版脚本 publish_release.py
+- [x] 下载页/版本页改为读取真实 API 数据
+- [x] 完成版本管理后台 `/admin/` 与一键发版流程
+- [x] 增强统计维度（today / 30d / source / by_hour）
+- [x] 完成第二轮视觉升级（首页 / 下载页 / 版本页）
+- [x] 数据面板支持基础图表展示
+- [x] 后台支持上传文件而非只填路径
+- [x] Admin v2：统一后台框架（概览 / 版本 / 社区 / 统计）
+- [x] Admin v2：登录限流 + CSRF + session 生命周期
+- [x] Admin v2：版本编辑 / 隐藏 / 删除
+- [x] Admin v2：社区管理 UI 接入
+- [x] 下载页全量动态化
+- [x] 页面访问/CTA 埋点接入前端
+- [x] security 页面动态化
+- [x] releases 页面动态化
+- [x] community 页面行为埋点（发帖/点赞/筛选/排序）
+- [x] dashboard 图表升级（柱状图/趋势图）
+- [x] admin 图表升级（趋势图/行为概览）
+- [x] 后端事件聚合统计 API（analytics summary）
+- [x] admin 事件统计后台（事件类型/页面活跃/最近事件）
+- [x] 细粒度分析：按钮文案 / href / 标签热点 / 排序偏好
+- [x] 地理分布预备层（country 字段 + admin 展示 + 无外部解析模式）
+- [x] 下载 / 社区转化漏斗
+- [x] 修正漏斗算法（近似去重：ip+user_agent）
+- [ ] 下一步：真正会话级漏斗（visitor_id / session_id）
+- [ ] 下一步：接入真实 IP 地理解析（需景总确认是否允许外部服务）
+## [2026-03-22] Task: 后台管理员密码简化为 admin
+- [x] 定位后台登录配置来源
+- [x] 将 openclaw-download-backend.service 中 ADMIN_PASS 改为 admin
+- [x] 重载 systemd 并重启后端服务
+- [x] 验证服务恢复正常
+
