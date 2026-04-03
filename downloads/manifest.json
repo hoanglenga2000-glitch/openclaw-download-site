@@ -2,16 +2,16 @@
   "product": "OpenClaw Installer",
   "channel": "stable",
   "latest": "1.0.0",
-  "publishedAt": "2026-03-22T17:26:38+08:00",
+  "publishedAt": "2026-04-03T20:46:16+08:00",
   "downloads": [
     {
       "version": "1.0.0",
       "platform": "windows-x64",
-      "fileName": "OpenClaw-Installer-Setup-1.0.0.exe",
-      "path": "/downloads/OpenClaw-Installer-Setup-1.0.0.exe",
-      "sizeBytes": 170908873,
-      "sizeHuman": "163.0 MB",
-      "sha256": "b11b129ddb027f9a99c067940d6595d38dfc93ec98c2d64497e58f7ca1815544",
+      "fileName": "OpenClaw-Installer-1.0.0.exe",
+      "path": "https://download.zhjjq.tech/downloads/OpenClaw-Installer-1.0.0.exe",
+      "sizeBytes": 275117856,
+      "sizeHuman": "262.4 MB",
+      "sha256": "2234fdc75c44eb20e6fd4fa735d1c98902eb58cf3b181e1fbff26a1b306a1766",
       "notesPath": "/releases/"
     }
   ]
